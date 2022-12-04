@@ -5,9 +5,7 @@ pub fn run() -> i32 {
     let mut multiple: i32 = 20;
 
     loop {
-        if (1..=20).all(|x| -> bool {
-            return multiple % x == 0
-        }) {
+        if (1..=20).all(|x| -> bool { return multiple % x == 0 }) {
             break;
         }
 
