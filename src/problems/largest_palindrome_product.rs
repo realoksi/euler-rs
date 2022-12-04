@@ -36,11 +36,9 @@ pub fn run() -> u32 {
         for x in (100u32..999u32).rev() {
             let number: u32 = i * x;
 
-            if !is_palindrome(number) {
-                continue;
+            if is_palindrome(number) {
+                results.push(number);
             }
-
-            results.push(number);
         }
     }
 
