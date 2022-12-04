@@ -17,12 +17,12 @@ fn get_digits(number: u32) -> Vec<u32> {
     digits
 }
 
-fn is_palindrome ( number: u32 ) -> bool {
+fn is_palindrome(number: u32) -> bool {
     let digits = get_digits(number);
 
-    for i in 0..=digits.len()/2 {
-        if digits[i] != digits[(digits.len() - 1)-i] {
-            return false
+    for i in 0..=digits.len() / 2 {
+        if digits[i] != digits[(digits.len() - 1) - i] {
+            return false;
         }
     }
 
@@ -34,7 +34,7 @@ pub fn run() -> u32 {
 
     for i in (100u32..999u32).rev() {
         for x in (100u32..999u32).rev() {
-            let number: u32 = i*x;
+            let number: u32 = i * x;
 
             if !is_palindrome(number) {
                 continue;
