@@ -1,9 +1,9 @@
 // https://projecteuler.net/problem=2
 pub const PROBLEM_ID: u16 = 2;
 
-pub fn run() -> u32 {
-    let mut result: u32 = 0;
-    let mut buffer: [u32; 2] = [1, 0]; // this will hold the current number at [0] and the last one at [1]
+pub fn run() -> u64 {
+    let mut result: u64 = 0;
+    let mut buffer: [u64; 2] = [1, 0]; // this will hold the current number at [0] and the last one at [1]
 
     while buffer[0] < 4000000 {
         // do while the current number in the buffer is under 4 million

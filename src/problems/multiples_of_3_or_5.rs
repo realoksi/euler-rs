@@ -1,8 +1,8 @@
 // https://projecteuler.net/problem=1
 pub const PROBLEM_ID: u16 = 1;
 
-pub fn run() -> u32 {
-    let mut result: u32 = 0;
+pub fn run() -> u64 {
+    let mut result: u64 = 0;
 
     for i in 1..1000 {
         // for all numbers between 0 and 1000
