@@ -10,16 +10,24 @@ pub fn run() {
     let mut map: HashMap<u16, u64> = HashMap::new();
 
     map.insert(multiples_of_3_or_5::PROBLEM_ID, multiples_of_3_or_5::run());
-    map.insert(even_fibonacci_numbers::PROBLEM_ID, even_fibonacci_numbers::run());
-    map.insert(largest_prime_factor::PROBLEM_ID, largest_prime_factor::run());
-    map.insert(largest_palindrome_product::PROBLEM_ID, largest_palindrome_product::run());
+    map.insert(
+        even_fibonacci_numbers::PROBLEM_ID,
+        even_fibonacci_numbers::run(),
+    );
+    map.insert(
+        largest_prime_factor::PROBLEM_ID,
+        largest_prime_factor::run(),
+    );
+    map.insert(
+        largest_palindrome_product::PROBLEM_ID,
+        largest_palindrome_product::run(),
+    );
     map.insert(smallest_multiple::PROBLEM_ID, smallest_multiple::run());
 
-    for i in map {
-        println!(
-            "{}. {}",
-            i.0 , i.1
-        );
+    for key in 1u16..u16::MAX {
+        match map.get(&key) {
+            Some(v) => println!("{}. {}", key, v),
+            None => break,
+        };
     }
-
 }
