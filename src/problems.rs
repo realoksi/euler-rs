@@ -7,6 +7,7 @@ pub mod smallest_multiple;
 use std::collections::HashMap;
 
 pub fn run() {
+    println!("...");
     let mut map: HashMap<u16, u64> = HashMap::new();
 
     map.insert(multiples_of_3_or_5::PROBLEM_ID, multiples_of_3_or_5::run());
