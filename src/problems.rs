@@ -34,7 +34,7 @@ pub fn run() {
         smallest_multiple::run()
     );
     println!(
-        "{}. {:?}",
+        "{}. {}",
         sum_square_difference::PROBLEM_ID,
         sum_square_difference::run()
     );
