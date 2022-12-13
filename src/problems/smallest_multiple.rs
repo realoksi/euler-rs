@@ -2,15 +2,16 @@
 pub const PROBLEM_ID: u16 = 5;
 
 pub fn run() -> u32 {
-    let mut multiple: u32 = 20;
+    const RANGE: std::ops::RangeInclusive<u32> = 1..=20;
+    let mut multiple = *RANGE.end();
 
-    loop {
-        if (1..=20).all(|x| -> bool { return multiple % x == 0 }) {
+    while multiple <= u32::MAX {
+        if RANGE.into_iter().all(|f| multiple % f == 0) {
             break;
         }
 
         multiple += 20;
     }
 
-    multiple
+    return multiple;
 }
