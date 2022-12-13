@@ -1,8 +1,10 @@
 // https://projecteuler.net/problem=8
 pub const PROBLEM_ID: u16 = 8;
 
+const ADJACENT_DIGIT_SIZE: usize = 13;
+
 pub fn run() -> u64 {
-    let numbers: Vec<u64> = vec![
+    const SERIES: [u8; 1000] = [
         7, 3, 1, 6, 7, 1, 7, 6, 5, 3, 1, 3, 3, 0, 6, 2, 4, 9, 1, 9, 2, 2, 5, 1, 1, 9, 6, 7, 4, 4,
         2, 6, 5, 7, 4, 7, 4, 2, 3, 5, 5, 3, 4, 9, 1, 9, 4, 9, 3, 4, 9, 6, 9, 8, 3, 5, 2, 0, 3, 1,
         2, 7, 7, 4, 5, 0, 6, 3, 2, 6, 2, 3, 9, 5, 7, 8, 3, 1, 8, 0, 1, 6, 9, 8, 4, 8, 0, 1, 8, 6,
@@ -38,14 +40,18 @@ pub fn run() -> u64 {
         1, 8, 8, 2, 6, 7, 0, 4, 2, 8, 2, 5, 2, 4, 8, 3, 6, 0, 0, 8, 2, 3, 2, 5, 7, 5, 3, 0, 4, 2,
         0, 7, 5, 2, 9, 6, 3, 4, 5, 0,
     ];
-    let mut products: Vec<u64> = Vec::new();
+    const SERIES_SIZE: usize = SERIES.len();
 
-    for i in 0..numbers.len() {
-        if i + 13 > numbers.len() {
+    let mut products: [u64; 988] = [1; 988];
+
+    for i in 0..SERIES_SIZE {
+        if i + ADJACENT_DIGIT_SIZE > SERIES_SIZE {
             break;
         }
 
-        products.push(*(&numbers[i..i + 13].iter().product::<u64>()));
+        let _ = &SERIES[i..i + ADJACENT_DIGIT_SIZE].iter().for_each(|f| {
+            products[i] *= *f as u64;
+        });
     }
 
     *products.iter().max().unwrap()
