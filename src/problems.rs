@@ -4,7 +4,7 @@ pub mod largest_prime_factor;
 pub mod multiples_of_3_or_5;
 pub mod smallest_multiple;
 pub mod sum_square_difference;
-// ...
+pub mod ten_thousand_first_prime_number;
 pub mod largest_product_in_a_series;
 
 pub fn run() {
@@ -37,6 +37,11 @@ pub fn run() {
         "{}. {}",
         sum_square_difference::PROBLEM_ID,
         sum_square_difference::run()
+    );
+    println!(
+        "{}. {}",
+        ten_thousand_first_prime_number::PROBLEM_ID,
+        ten_thousand_first_prime_number::run()
     );
     println!(
         "{}. {}",
