@@ -1,11 +1,20 @@
-trait Problem {
+use std::fmt;
+
+trait Problem<T: fmt::Display> {
     fn title(&self) -> &'static str;
     fn id(&self) -> &'static u16;
-    fn run(&self) -> String;
+    fn answer(&self) -> &'static T;
+    fn run(&self) -> T;
+    fn format(&self, v: T) -> String {
+        format!("{}. {}: {}", self.id(), self.title(), v)
+    }
+    fn run_and_format(&self) -> String {
+        self.format(self.run())
+    }
 }
 
-struct _1;
-impl Problem for _1 {
+struct P1;
+impl Problem<i32> for P1 {
     fn title(&self) -> &'static str {
         "Multiples of 3 or 5"
     }
@@ -14,7 +23,11 @@ impl Problem for _1 {
         &1
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static i32 {
+        &0x38ED0
+    }
+
+    fn run(&self) -> i32 {
         let mut r = 0;
 
         for i in 1..1000 {
@@ -23,12 +36,12 @@ impl Problem for _1 {
             }
         }
 
-        format!("{}. {}: {}", self.id(), self.title(), r)
+        r
     }
 }
 
-struct _2;
-impl Problem for _2 {
+struct P2;
+impl Problem<u32> for P2 {
     fn title(&self) -> &'static str {
         "Even Fibonacci Numbers"
     }
@@ -37,7 +50,11 @@ impl Problem for _2 {
         &2
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u32 {
+        &0x466664
+    }
+
+    fn run(&self) -> u32 {
         let mut r: u32 = 0;
         let mut b: [u32; 2] = [1, 0];
 
@@ -49,12 +66,12 @@ impl Problem for _2 {
             }
         }
 
-        format!("{}. {}: {}", self.id(), self.title(), r)
+        r
     }
 }
 
-struct _3;
-impl Problem for _3 {
+struct P3;
+impl Problem<u64> for P3 {
     fn title(&self) -> &'static str {
         "Largest Prime Factor"
     }
@@ -63,7 +80,11 @@ impl Problem for _3 {
         &3
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u64 {
+        &0x1AC9
+    }
+
+    fn run(&self) -> u64 {
         fn _r(n: u64, p: &mut Vec<u64>) {
             for i in 2..n {
                 if n % i == 0 {
@@ -80,17 +101,12 @@ impl Problem for _3 {
 
         _r(600851475143, &mut p);
 
-        format!(
-            "{}. {}: {}",
-            self.id(),
-            self.title(),
-            *p.iter().max().unwrap()
-        )
+        *p.iter().max().unwrap()
     }
 }
 
-struct _4;
-impl Problem for _4 {
+struct P4;
+impl Problem<u32> for P4 {
     fn title(&self) -> &'static str {
         "Largest Palindrome Product"
     }
@@ -99,7 +115,11 @@ impl Problem for _4 {
         &4
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u32 {
+        &0xDD571
+    }
+
+    fn run(&self) -> u32 {
         fn push_digits(n: u32, d: &mut Vec<u32>) {
             if n >= 10 {
                 push_digits(n / 10, d);
@@ -140,17 +160,12 @@ impl Problem for _4 {
             }
         }
 
-        format!(
-            "{}. {}: {}",
-            self.id(),
-            self.title(),
-            *r.iter().max().unwrap()
-        )
+        *r.iter().max().unwrap()
     }
 }
 
-struct _5;
-impl Problem for _5 {
+struct P5;
+impl Problem<u32> for P5 {
     fn title(&self) -> &'static str {
         "Smallest Multiple"
     }
@@ -159,7 +174,11 @@ impl Problem for _5 {
         &5
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u32 {
+        &0xDE021F0
+    }
+
+    fn run(&self) -> u32 {
         let mut m = 20;
 
         while m <= u32::MAX {
@@ -170,12 +189,12 @@ impl Problem for _5 {
             m += 20;
         }
 
-        format!("{}. {}: {}", self.id(), self.title(), m)
+        m
     }
 }
 
-struct _6;
-impl Problem for _6 {
+struct P6;
+impl Problem<u64> for P6 {
     fn title(&self) -> &'static str {
         "Sum Square Difference"
     }
@@ -184,23 +203,22 @@ impl Problem for _6 {
         &6
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u64 {
+        &0x17FF976
+    }
+
+    fn run(&self) -> u64 {
         let mut s: u64 = 0;
         for i in 1..=100u64 {
             s += i.pow(2);
         }
 
-        format!(
-            "{}. {}: {}",
-            self.id(),
-            self.title(),
-            (1..=100).sum::<u64>().pow(2) - s
-        )
+        (1..=100).sum::<u64>().pow(2) - s
     }
 }
 
-struct _7;
-impl Problem for _7 {
+struct P7;
+impl Problem<u32> for P7 {
     fn title(&self) -> &'static str {
         "10001st Prime"
     }
@@ -209,7 +227,11 @@ impl Problem for _7 {
         &7
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u32 {
+        &0x19927
+    }
+
+    fn run(&self) -> u32 {
         let mut m: Vec<u32> = Vec::with_capacity(10001);
 
         for i in 2..u32::MAX {
@@ -224,12 +246,12 @@ impl Problem for _7 {
             }
         }
 
-        format!("{}. {}: {}", self.id(), self.title(), *m.last().unwrap())
+        *m.last().unwrap()
     }
 }
 
-struct _8;
-impl Problem for _8 {
+struct P8;
+impl Problem<u64> for P8 {
     fn title(&self) -> &'static str {
         "Largest Product In A Series"
     }
@@ -238,7 +260,11 @@ impl Problem for _8 {
         &8
     }
 
-    fn run(&self) -> String {
+    fn answer(&self) -> &'static u64 {
+        &0x57994B000
+    }
+
+    fn run(&self) -> u64 {
         const S: [u8; 1000] = [
             7, 3, 1, 6, 7, 1, 7, 6, 5, 3, 1, 3, 3, 0, 6, 2, 4, 9, 1, 9, 2, 2, 5, 1, 1, 9, 6, 7, 4,
             4, 2, 6, 5, 7, 4, 7, 4, 2, 3, 5, 5, 3, 4, 9, 1, 9, 4, 9, 3, 4, 9, 6, 9, 8, 3, 5, 2, 0,
@@ -289,25 +315,20 @@ impl Problem for _8 {
             });
         }
 
-        format!(
-            "{}. {}: {}",
-            self.id(),
-            self.title(),
-            *p.iter().max().unwrap()
-        )
+        *p.iter().max().unwrap()
     }
 }
 
 pub fn run() {
     for p in [
-        _1.run(),
-        _2.run(),
-        _3.run(),
-        _4.run(),
-        _5.run(),
-        _6.run(),
-        _7.run(),
-        _8.run(),
+        P1.run_and_format(),
+        P2.run_and_format(),
+        P3.run_and_format(),
+        P4.run_and_format(),
+        P5.run_and_format(),
+        P6.run_and_format(),
+        P7.run_and_format(),
+        P8.run_and_format(),
     ] {
         println!("{}", p);
     }
