@@ -1,5 +1,7 @@
 mod problems;
 
+use problems::*;
+
 fn main() {
-    problems::run();
+    run();
 }
