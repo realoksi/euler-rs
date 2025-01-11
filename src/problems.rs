@@ -1,15 +1,28 @@
 use std::fmt;
 
-trait Problem<T: fmt::Display> {
+trait Problem<T: fmt::Display + std::cmp::PartialEq + 'static> {
     fn title(&self) -> &'static str;
     fn id(&self) -> &'static u16;
     fn answer(&self) -> &'static T;
     fn run(&self) -> T;
-    fn format(&self, v: T) -> String {
-        format!("{}. {}: {}", self.id(), self.title(), v)
-    }
-    fn run_and_format(&self) -> String {
-        self.format(self.run())
+    fn test(&self) -> bool {
+        let result = self.run() == *self.answer();
+
+        if result {
+            println!(
+                "\x1b[38;2;62;247;105m{}. {}\x1b[0m 👍",
+                self.id(),
+                self.title().to_lowercase()
+            );
+        } else {
+            println!(
+                "\x1b[38;2;255;18;73m{}. {}\x1b[0m 👎",
+                self.id(),
+                self.title().to_lowercase()
+            );
+        }
+
+        result
     }
 }
 
@@ -319,17 +332,67 @@ impl Problem<u64> for P8 {
     }
 }
 
-pub fn run() {
+struct P9;
+impl Problem<u64> for P9 {
+    fn title(&self) -> &'static str {
+        "Special Pythagorean Triplet"
+    }
+
+    fn id(&self) -> &'static u16 {
+        &9
+    }
+
+    fn answer(&self) -> &'static u64 {
+        &0x1E65FB8
+    }
+
+    fn run(&self) -> u64 {
+        const MAGIC: u64 = 1000;
+
+        for a in 1..MAGIC {
+            for b in a + 1..MAGIC {
+                let c = ((a.pow(2) + b.pow(2)) as f64).sqrt();
+
+                if c.fract() != 0.0 {
+                    continue;
+                }
+
+                if a + b + c as u64 == MAGIC {
+                    return a * b * c as u64;
+                }
+            }
+        }
+
+        0
+    }
+}
+
+pub fn run() -> bool {
     for p in [
-        P1.run_and_format(),
-        P2.run_and_format(),
-        P3.run_and_format(),
-        P4.run_and_format(),
-        P5.run_and_format(),
-        P6.run_and_format(),
-        P7.run_and_format(),
-        P8.run_and_format(),
+        P1.test(),
+        P2.test(),
+        P3.test(),
+        P4.test(),
+        P5.test(),
+        P6.test(),
+        P7.test(),
+        P8.test(),
+        P9.test(),
     ] {
-        println!("{}", p);
+        if !p {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_all() {
+        assert!(run())
     }
 }
