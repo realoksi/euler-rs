@@ -347,23 +347,41 @@ impl Problem<u64> for P9 {
     }
 
     fn run(&self) -> u64 {
-        const MAGIC: u64 = 1000;
+        const MAGIC: u64 = 1000; // this is our target
 
         for a in 1..MAGIC {
-            for b in a + 1..MAGIC {
-                let c = ((a.pow(2) + b.pow(2)) as f64).sqrt();
-
-                if c.fract() != 0.0 {
-                    continue;
-                }
-
-                if a + b + c as u64 == MAGIC {
-                    return a * b * c as u64;
+            for b in a + 1..MAGIC - a { // loop for b, ensures b is always larger than a
+                let c = MAGIC - a - b; // solve for c, regardless if it's correct or not
+                if a * a + b * b == c * c { // only when a^2 + b^2 = c^2 will we return the product of abc
+                    return a * b * c; // this is our final answer
                 }
             }
         }
 
-        0
+        0 // the runtime won't ever be able to reach this, but the compiler doesn't know that.
+    }
+}
+
+/*
+the sum of the primes below 10 is 2 + 3 + 5 + 7 = 17
+find the sum of all the primes below two million
+*/
+struct P10;
+impl Problem<u64> for P10 {
+    fn title(&self) -> &'static str {
+        "Summation of Primes"
+    }
+
+    fn id(&self) -> &'static u16 {
+        &10
+    }
+
+    fn answer(&self) -> &'static u64 {
+        todo!()
+    }
+
+    fn run(&self) -> u64 {
+        todo!()
     }
 }
 
@@ -378,6 +396,7 @@ pub fn run() -> bool {
         P7.test(),
         P8.test(),
         P9.test(),
+        // P10.test()
     ] {
         if !p {
             return false;
